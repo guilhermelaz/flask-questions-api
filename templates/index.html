@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .quiz-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container quiz-container">
+        <h1 class="text-center mb-4">Quiz App</h1>
+        <div id="inicio">
+            <h3 class="text-center mb-3">Escolha a dificuldade:</h3>
+            <div class="d-grid gap-2">
+                <button class="btn btn-success" onclick="iniciarQuiz('facil')">Fácil</button>
+                <button class="btn btn-warning" onclick="iniciarQuiz('medio')">Médio</button>
+                <button class="btn btn-danger" onclick="iniciarQuiz('dificil')">Difícil</button>
+                <button class="btn btn-info" onclick="iniciarQuiz('misto')">Misto</button>
+            </div>
+        </div>
+        <div id="quiz" style="display: none;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 id="pergunta" class="mb-0"></h3>
+                <span id="dificuldade-badge" class="badge"></span>
+            </div>
+            <div id="alternativas" class="d-grid gap-2"></div>
+            <div class="mt-3">
+                <button id="proxima" class="btn btn-primary" style="display: none;" onclick="proximaPergunta()">Próxima Pergunta</button>
+                <button id="finalizar" class="btn btn-success" style="display: none;" onclick="finalizarQuiz()">Finalizar Quiz</button>
+            </div>
+            <p id="pontuacao" class="mt-3"></p>
+        </div>
+        <div id="resultado" style="display: none;">
+            <h3 class="text-center mb-3">Quiz Finalizado!</h3>
+            <p id="pontuacao-final" class="text-center"></p>
+            <div class="d-grid">
+                <button class="btn btn-primary" onclick="voltarInicio()">Jogar Novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let perguntas = [];
+        let perguntaAtual = 0;
+        let pontos = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function iniciarQuiz(dificuldade) {
+            fetch('/criar_quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `dificuldade=${dificuldade}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                perguntas = data;
+                perguntaAtual = 0;
+                pontos = 0;
+                document.getElementById('inicio').style.display = 'none';
+                document.getElementById('quiz').style.display = 'block';
+                document.getElementById('resultado').style.display = 'none';
+                mostrarPergunta();
+            });
+        }
+
+        function mostrarPergunta() {
+            const pergunta = perguntas[perguntaAtual];
+            document.getElementById('pergunta').textContent = pergunta.texto;
+            
+            // Atualizar o badge de dificuldade
+            const badgeEl = document.getElementById('dificuldade-badge');
+            const dificuldadeClasses = {
+                'facil': 'bg-success',
+                'medio': 'bg-warning',
+                'dificil': 'bg-danger'
+            };
+            badgeEl.className = `badge ${dificuldadeClasses[pergunta.dificuldade] || 'bg-secondary'}`;
+            badgeEl.textContent = pergunta.dificuldade.charAt(0).toUpperCase() + pergunta.dificuldade.slice(1);
+            
+            const alternativasDiv = document.getElementById('alternativas');
+            alternativasDiv.innerHTML = '';
+            
+            // Criar uma cópia das alternativas e embaralhar
+            let alternativasEmbaralhadas = [...pergunta.alternativas];
+            shuffleArray(alternativasEmbaralhadas);
+            
+            alternativasEmbaralhadas.forEach(alternativa => {
+                const button = document.createElement('button');
+                button.className = 'btn btn-outline-primary';
+                button.textContent = alternativa;
+                button.onclick = () => selecionarResposta(alternativa);
+                alternativasDiv.appendChild(button);
+            });
+
+            document.getElementById('proxima').style.display = 'none';
+            document.getElementById('finalizar').style.display = 'none';
+        }
+
+        function selecionarResposta(resposta) {
+            const buttons = document.getElementById('alternativas').getElementsByTagName('button');
+            for (let button of buttons) {
+                button.disabled = true;
+                if (button.textContent === resposta) {
+                    if (resposta === perguntas[perguntaAtual].resposta_correta) {
+                        button.className = 'btn btn-success';
+                        pontos++;
+                    } else {
+                        button.className = 'btn btn-danger';
+                    }
+                }
+            }
+
+            if (perguntaAtual < perguntas.length - 1) {
+                document.getElementById('proxima').style.display = 'block';
+            } else {
+                document.getElementById('finalizar').style.display = 'block';
+            }
+        }
+
+        function proximaPergunta() {
+            perguntaAtual++;
+            mostrarPergunta();
+        }
+
+        function finalizarQuiz() {
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('resultado').style.display = 'block';
+            document.getElementById('pontuacao-final').textContent = 
+                `Você acertou ${pontos} de ${perguntas.length} perguntas!`;
+        }
+
+        function voltarInicio() {
+            document.getElementById('inicio').style.display = 'block';
+            document.getElementById('resultado').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

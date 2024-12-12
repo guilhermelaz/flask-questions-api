@@ -1,0 +1,212 @@
+[
+    { 
+      "pergunta": "Qual é o nome do encanador mais famoso dos jogos da Nintendo?",
+      "tema": "Mario",
+      "dificuldade": "Fácil",
+      "alternativas": ["Luigi", "Mario", "Wario", "Toad"],
+      "resposta_correta": "Mario"
+    },
+    {
+      "pergunta": "Em qual jogo da Nintendo você coleta moedas e salva a Princesa Peach?",
+      "tema": "Mario",
+      "dificuldade": "Fácil",
+      "alternativas": ["Super Mario Bros.", "The Legend of Zelda", "Metroid", "Kirby"],
+      "resposta_correta": "Super Mario Bros."
+    },
+    {
+      "pergunta": "Qual é o nome do herói principal na série The Legend of Zelda?",
+      "tema": "Zelda",
+      "dificuldade": "Fácil",
+      "alternativas": ["Zelda", "Link", "Ganon", "Sheik"],
+      "resposta_correta": "Link"
+    },
+    {
+      "pergunta": "Qual jogo apresenta criaturas chamadas Pokémon que podem ser capturadas e treinadas?",
+      "tema": "Pokémon",
+      "dificuldade": "Fácil",
+      "alternativas": ["Pokémon", "Digimon", "Monster Hunter", "Final Fantasy"],
+      "resposta_correta": "Pokémon"
+    },
+    {
+      "pergunta": "Qual é o veículo usado por Fox McCloud em Star Fox?",
+      "tema": "Starfox",
+      "dificuldade": "Fácil",
+      "alternativas": ["Arwing", "Blue Falcon", "Great Fox", "Landmaster"],
+      "resposta_correta": "Arwing"
+    },
+    {
+      "pergunta": "Em qual jogo da Nintendo o personagem Samus Aran aparece?",
+      "tema": "Metroid",
+      "dificuldade": "Médio",
+      "alternativas": ["Metroid", "F-Zero", "EarthBound", "Kid Icarus"],
+      "resposta_correta": "Metroid"
+    },
+    {
+      "pergunta": "Qual é o nome do rival de Mario que veste amarelo e roxo?",
+      "tema": "Mario",
+      "dificuldade": "Médio",
+      "alternativas": ["Waluigi", "Wario", "Bowser", "Donkey Kong"],
+      "resposta_correta": "Wario"
+    },
+    {
+      "pergunta": "Qual jogo de corrida futurista da Nintendo apresenta o veículo Blue Falcon?",
+      "tema": "F Zero",
+      "dificuldade": "Médio",
+      "alternativas": ["Mario Kart", "F-Zero", "Excitebike", "Wave Race"],
+      "resposta_correta": "F-Zero"
+    },
+    {
+      "pergunta": "Qual personagem rosa pode copiar habilidades de inimigos em seu jogo homônimo?",
+      "tema": "Kirby",
+      "dificuldade": "Médio",
+      "alternativas": ["Kirby", "Jigglypuff", "Pikachu", "Yoshi"],
+      "resposta_correta": "Kirby"
+    },
+    {
+      "pergunta": "Em qual série de jogos você encontra o personagem Donkey Kong?",
+      "tema": "Donkey Kong",
+      "dificuldade": "Médio",
+      "alternativas": ["Donkey Kong Country", "Banjo-Kazooie", "Conker's Bad Fur Day", "Star Fox"],
+      "resposta_correta": "Donkey Kong Country"
+    },
+    {
+      "pergunta": "Qual é o nome do vilão principal na série de jogos Mario?",
+      "tema": "Mario",
+      "dificuldade": "Difícil",
+      "alternativas": ["Bowser", "Ganondorf", "King K. Rool", "Ridley"],
+      "resposta_correta": "Bowser"
+    },
+    {
+      "pergunta": "Em qual jogo da Nintendo você pode encontrar o personagem Ness?",
+      "tema": "Earthbound",
+      "dificuldade": "Difícil",
+      "alternativas": ["EarthBound", "Mother 3", "Golden Sun", "Fire Emblem"],
+      "resposta_correta": "EarthBound"
+    },
+    {
+      "pergunta": "Qual é o nome do dispositivo portátil de jogos lançado pela Nintendo em 1989?",
+      "tema": "Consoles",
+      "dificuldade": "Difícil",
+      "alternativas": ["Game Boy", "Game Gear", "PSP", "Neo Geo Pocket"],
+      "resposta_correta": "Game Boy"
+    },
+    {
+      "pergunta": "Qual jogo apresenta batalhas de estratégia com personagens como Marth e Roy?",
+      "tema": "Fire Emblem",
+      "dificuldade": "Difícil",
+      "alternativas": ["Fire Emblem", "Advance Wars", "Final Fantasy Tactics", "Shining Force"],
+      "resposta_correta": "Fire Emblem"
+    },
+    {
+      "pergunta": "Em qual jogo Mario e Luigi devem resgatar o Reino dos Cogumelos?",
+      "tema": "Mario",
+      "dificuldade": "Difícil",
+      "alternativas": ["Super Mario Bros.", "Mario Party", "Mario Kart", "Mario Tennis"],
+      "resposta_correta": "Super Mario Bros."
+    },
+    {
+      "pergunta": "Qual jogo da Nintendo envolve criar e gerenciar sua própria fazenda?",
+      "tema": "Harvest Moon",
+      "dificuldade": "Difícil",
+      "alternativas": ["Harvest Moon", "Animal Crossing", "Stardew Valley", "Rune Factory"],
+      "resposta_correta": "Harvest Moon"
+    },
+    {
+      "pergunta": "Qual é o nome do console doméstico lançado pela Nintendo em 2006 com controles de movimento?",
+      "tema": "Consoles",
+      "dificuldade": "Médio",
+      "alternativas": ["Nintendo Wii", "Nintendo Switch", "GameCube", "Wii U"],
+      "resposta_correta": "Nintendo Wii"
+    },
+    {
+      "pergunta": "Em qual jogo você pode encontrar personagens como Tom Nook e Isabelle?",
+      "tema": "Animal Crossing",
+      "dificuldade": "Difícil",
+      "alternativas": ["Animal Crossing", "Pokémon", "Pikmin", "Splatoon"],
+      "resposta_correta": "Animal Crossing"
+    },
+    {
+      "pergunta": "Qual jogo de luta da Nintendo apresenta uma variedade de personagens de diferentes franquias?",
+      "tema": "Super Smash Bros.",
+      "dificuldade": "Fácil",
+      "alternativas": ["Super Smash Bros.", "ARMS", "Tekken", "Street Fighter"],
+      "resposta_correta": "Super Smash Bros."
+    },
+    {
+      "pergunta": "Qual é o nome do jogo em que o jogador controla pequenas criaturas chamadas Pikmin?",
+      "tema": "Pikmin",
+      "dificuldade": "Médio",
+      "alternativas": ["Pikmin", "Olimar's Quest", "Tiny Monsters", "Chibi-Robo"],
+      "resposta_correta": "Pikmin"
+    },
+    {
+      "pergunta": "Qual é o nome do dinossauro verde que ajuda Mario em suas aventuras?",
+      "tema": "Mario",
+      "dificuldade": "Difícil",
+      "alternativas": ["Yoshi", "Birdo", "Koopa", "Goomba"],
+      "resposta_correta": "Yoshi"
+    },
+    {
+      "pergunta": "Qual é a cor do chapéu do Luigi?",
+      "tema": "Mario",
+      "dificuldade": "Fácil",
+      "alternativas": ["Verde", "Vermelho", "Azul", "Amarelo"],
+      "resposta_correta": "Verde"
+    },
+    {
+      "pergunta": "Qual é o nome da princesa do Reino dos Cogumelos?",
+      "tema": "Mario",
+      "dificuldade": "Fácil",
+      "alternativas": ["Princesa Peach", "Princesa Daisy", "Princesa Rosalina", "Princesa Zelda"],
+      "resposta_correta": "Princesa Peach"
+    },
+    {
+      "pergunta": "Qual é o nome do primeiro console de videogame lançado pela Nintendo?",
+      "tema": "Consoles",
+      "dificuldade": "Médio",
+      "alternativas": ["Nintendo Entertainment System", "Game Boy", "Super Nintendo", "Nintendo 64"],
+      "resposta_correta": "Nintendo Entertainment System"
+    },
+    {
+      "pergunta": "Em qual jogo da Nintendo você pode criar e personalizar sua própria ilha?",
+      "tema": "Animal Crossing",
+      "dificuldade": "Fácil",
+      "alternativas": ["Animal Crossing: New Horizons", "The Sims", "Minecraft", "Stardew Valley"],
+      "resposta_correta": "Animal Crossing: New Horizons"
+    },
+    {
+      "pergunta": "Qual é o nome do macaco que rouba a namorada de Mario no primeiro jogo do encanador?",
+      "tema": "Mario",
+      "dificuldade": "Médio",
+      "alternativas": ["Donkey Kong", "Diddy Kong", "King K. Rool", "Funky Kong"],
+      "resposta_correta": "Donkey Kong"
+    },
+    {
+      "pergunta": "Qual é o nome da espada lendária em The Legend of Zelda?",
+      "tema": "Zelda",
+      "dificuldade": "Fácil",
+      "alternativas": ["Master Sword", "Biggoron Sword", "Kokiri Sword", "Giant's Knife"],
+      "resposta_correta": "Master Sword"
+    },
+    {
+      "pergunta": "Qual é o nome do reino subaquático em Super Mario?",
+      "tema": "Mario",
+      "dificuldade": "Difícil",
+      "alternativas": ["Water Land", "Atlantis Kingdom", "Deep Sea Kingdom", "Lake Kingdom"],
+      "resposta_correta": "Water Land"
+    },
+    {
+      "pergunta": "Em qual jogo da Nintendo você controla um grupo de astronautas explorando planetas?",
+      "tema": "Pikmin",
+      "dificuldade": "Médio",
+      "alternativas": ["Pikmin", "Starfox", "Metroid", "Space Hunter"],
+      "resposta_correta": "Pikmin"
+    },
+    {
+      "pergunta": "Qual é o nome do instrumento musical usado em The Legend of Zelda: Ocarina of Time?",
+      "tema": "Zelda",
+      "dificuldade": "Difícil",
+      "alternativas": ["Ocarina of Time", "Flauta Mágica", "Harpa Real", "Lira Sagrada"],
+      "resposta_correta": "Ocarina of Time"
+    }
+]
