@@ -9,3 +9,7 @@ class Quiz:
 
     def set_dificuldade(self, dificuldade):
         self.dificuldade = dificuldade
+        
+    def embaralhar_perguntas(self):
+        import random
+        random.shuffle(self.perguntas)

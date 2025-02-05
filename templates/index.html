@@ -1,57 +1,345 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .quiz-container {
-            max-width: 600px;
-            margin: 50px auto;
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .container {
+            background-color: #f5f5f5;
+            padding: 20px;
             border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .options {
+            margin: 20px 0;
+        }
+        .option {
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        button:hover:not(:disabled) {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .alternativa {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #333;
+            font-size: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .alternativa:hover:not(:disabled) {
+            border-color: #4CAF50;
+            background-color: #f0f9f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .alternativa.selecionada {
+            border-color: #4CAF50;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .alternativa.correta {
+            border-color: #4CAF50;
+            background-color: #c8e6c9;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        .alternativa.incorreta {
+            border-color: #f44336;
+            background-color: #ffebee;
+            color: #c62828;
+            font-weight: bold;
+        }
+        .btn-proxima {
+            background-color: #2196F3;
+            font-weight: bold;
+            padding: 15px 30px;
+            margin-top: 20px;
+        }
+        .btn-proxima:hover:not(:disabled) {
+            background-color: #1976D2;
+        }
+        .timer {
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #666;
+        }
+        .hidden {
+            display: none;
+        }
+        .resultado {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+        }
+        .feedback {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .feedback.correto {
+            background-color: #c8e6c9;
+            color: #2e7d32;
+        }
+        .feedback.incorreto {
+            background-color: #ffcdd2;
+            color: #c62828;
         }
     </style>
 </head>
 <body>
-    <div class="container quiz-container">
-        <h1 class="text-center mb-4">Quiz App</h1>
-        <div id="inicio">
-            <h3 class="text-center mb-3">Escolha a dificuldade:</h3>
-            <div class="d-grid gap-2">
-                <button class="btn btn-success" onclick="iniciarQuiz('facil')">Fácil</button>
-                <button class="btn btn-warning" onclick="iniciarQuiz('medio')">Médio</button>
-                <button class="btn btn-danger" onclick="iniciarQuiz('dificil')">Difícil</button>
-                <button class="btn btn-info" onclick="iniciarQuiz('misto')">Misto</button>
+    <div class="container">
+        <div id="configuracao">
+            <h2>Configurar Quiz</h2>
+            <div class="options">
+                <div class="option">
+                    <label>Dificuldade:</label>
+                    <select id="dificuldade">
+                        <option value="facil">Fácil</option>
+                        <option value="medio">Médio</option>
+                        <option value="dificil">Difícil</option>
+                        <option value="misto">Misto</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label>Modo de Jogo:</label>
+                    <select id="modo">
+                        <option value="sem_tempo">Sem Tempo</option>
+                        <option value="com_tempo">Com Tempo</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label>Quantidade de Perguntas:</label>
+                    <input type="number" id="max_perguntas" value="5" min="1" max="10">
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" id="embaralhar" checked>
+                        Embaralhar Perguntas
+                    </label>
+                </div>
             </div>
+            <button onclick="iniciarQuiz()">Iniciar Quiz</button>
         </div>
-        <div id="quiz" style="display: none;">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h3 id="pergunta" class="mb-0"></h3>
-                <span id="dificuldade-badge" class="badge"></span>
-            </div>
-            <div id="alternativas" class="d-grid gap-2"></div>
-            <div class="mt-3">
-                <button id="proxima" class="btn btn-primary" style="display: none;" onclick="proximaPergunta()">Próxima Pergunta</button>
-                <button id="finalizar" class="btn btn-success" style="display: none;" onclick="finalizarQuiz()">Finalizar Quiz</button>
-            </div>
-            <p id="pontuacao" class="mt-3"></p>
+
+        <div id="quiz" class="hidden">
+            <div id="timer" class="timer hidden">Tempo: <span id="tempo">0</span>s</div>
+            <h3 id="pergunta"></h3>
+            <div id="alternativas"></div>
+            <div id="feedback" class="feedback hidden"></div>
+            <button onclick="proximaPergunta()" id="btnProxima" class="btn-proxima" disabled>Próxima Pergunta</button>
+            <button onclick="finalizarQuiz()" id="btnFinalizar" class="hidden">Finalizar Quiz</button>
         </div>
-        <div id="resultado" style="display: none;">
-            <h3 class="text-center mb-3">Quiz Finalizado!</h3>
-            <p id="pontuacao-final" class="text-center"></p>
-            <div class="d-grid">
-                <button class="btn btn-primary" onclick="voltarInicio()">Jogar Novamente</button>
-            </div>
+
+        <div id="resultado" class="resultado hidden">
+            <h2>Resultado</h2>
+            <p>Pontuação: <span id="pontuacao">0</span></p>
+            <p>Respostas Corretas: <span id="totalCorretas">0</span></p>
+            <p>Tempo Total: <span id="tempoTotal">0</span>s</p>
+            <button onclick="voltarInicio()">Voltar ao Início</button>
         </div>
     </div>
 
     <script>
         let perguntas = [];
         let perguntaAtual = 0;
-        let pontos = 0;
+        let respostasCorretas = 0;
+        let tempoInicio;
+        let timerInterval;
+        let respostas = [];
+
+        function iniciarQuiz() {
+            const dificuldade = document.getElementById('dificuldade').value;
+            const modo = document.getElementById('modo').value;
+            const maxPerguntas = document.getElementById('max_perguntas').value;
+            const embaralhar = document.getElementById('embaralhar').checked;
+
+            fetch('/criar_quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `dificuldade=${dificuldade}&modo=${modo}&max_perguntas=${maxPerguntas}&embaralhar=${embaralhar}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                perguntas = data.perguntas;
+                respostas = new Array(perguntas.length).fill(null);
+                perguntaAtual = 0;
+                respostasCorretas = 0;
+                
+                document.getElementById('configuracao').classList.add('hidden');
+                document.getElementById('quiz').classList.remove('hidden');
+                document.getElementById('btnFinalizar').classList.add('hidden');
+                document.getElementById('feedback').classList.add('hidden');
+                
+                if (data.modo === 'com_tempo') {
+                    document.getElementById('timer').classList.remove('hidden');
+                    iniciarTimer();
+                }
+                
+                mostrarPergunta();
+            });
+        }
+
+        function iniciarTimer() {
+            tempoInicio = new Date();
+            timerInterval = setInterval(() => {
+                const tempoDecorrido = Math.floor((new Date() - tempoInicio) / 1000);
+                document.getElementById('tempo').textContent = tempoDecorrido;
+            }, 1000);
+        }
+
+        function mostrarPergunta() {
+            if (perguntaAtual < perguntas.length) {
+                const pergunta = perguntas[perguntaAtual];
+                document.getElementById('pergunta').textContent = pergunta.texto;
+                document.getElementById('feedback').classList.add('hidden');
+                
+                const alternativasDiv = document.getElementById('alternativas');
+                alternativasDiv.innerHTML = '';
+                
+                pergunta.alternativas.forEach((alternativa, index) => {
+                    const button = document.createElement('button');
+                    button.textContent = alternativa;
+                    button.className = 'alternativa';
+                    button.onclick = () => selecionarResposta(index);
+                    
+                    if (respostas[perguntaAtual] === index) {
+                        button.classList.add('selecionada');
+                    }
+                    
+                    alternativasDiv.appendChild(button);
+                });
+                
+                const btnProxima = document.getElementById('btnProxima');
+                const btnFinalizar = document.getElementById('btnFinalizar');
+                
+                btnProxima.disabled = respostas[perguntaAtual] === null;
+                
+                if (perguntaAtual === perguntas.length - 1) {
+                    btnProxima.classList.add('hidden');
+                    btnFinalizar.classList.remove('hidden');
+                    btnFinalizar.disabled = respostas[perguntaAtual] === null;
+                } else {
+                    btnProxima.classList.remove('hidden');
+                    btnFinalizar.classList.add('hidden');
+                }
+            }
+        }
+
+        function selecionarResposta(index) {
+            respostas[perguntaAtual] = index;
+            
+            const alternativas = document.getElementById('alternativas').children;
+            for (let i = 0; i < alternativas.length; i++) {
+                alternativas[i].classList.remove('selecionada');
+                if (i === index) {
+                    alternativas[i].classList.add('selecionada');
+                }
+            }
+            
+            // Verifica se a resposta está correta
+            const respostaCorretaIndex = perguntas[perguntaAtual].resposta_correta;
+            const feedback = document.getElementById('feedback');
+            
+            feedback.textContent = index === respostaCorretaIndex ? 'Resposta Correta!' : 'Resposta Incorreta!';
+            feedback.className = 'feedback ' + (index === respostaCorretaIndex ? 'correto' : 'incorreto');
+            feedback.classList.remove('hidden');
+
+            // Marca visualmente a resposta correta e incorreta
+            for (let i = 0; i < alternativas.length; i++) {
+                if (i === respostaCorretaIndex) {
+                    alternativas[i].classList.add('correta');
+                } else if (i === index && i !== respostaCorretaIndex) {
+                    alternativas[i].classList.add('incorreta');
+                }
+                alternativas[i].disabled = true;
+            }
+            
+            if (perguntaAtual === perguntas.length - 1) {
+                document.getElementById('btnFinalizar').disabled = false;
+            } else {
+                document.getElementById('btnProxima').disabled = false;
+            }
+        }
+
+        function proximaPergunta() {
+            if (perguntaAtual < perguntas.length - 1) {
+                perguntaAtual++;
+                mostrarPergunta();
+            }
+        }
+
+        function finalizarQuiz() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+            
+            const tempoTotal = timerInterval ? Math.floor((new Date() - tempoInicio) / 1000) : 0;
+            
+            fetch('/submeter_resposta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    respostas: respostas,
+                    tempo: tempoTotal
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('quiz').classList.add('hidden');
+                document.getElementById('resultado').classList.remove('hidden');
+                document.getElementById('pontuacao').textContent = data.pontuacao || 0;
+                document.getElementById('totalCorretas').textContent = data.respostas_corretas || 0;
+                document.getElementById('tempoTotal').textContent = tempoTotal;
+            });
+        }
+
+        function voltarInicio() {
+            document.getElementById('resultado').classList.add('hidden');
+            document.getElementById('configuracao').classList.remove('hidden');
+            perguntaAtual = 0;
+            respostasCorretas = 0;
+            perguntas = [];
+            respostas = [];
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        }
 
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -59,97 +347,6 @@
                 [array[i], array[j]] = [array[j], array[i]];
             }
             return array;
-        }
-
-        function iniciarQuiz(dificuldade) {
-            fetch('/criar_quiz', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `dificuldade=${dificuldade}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                perguntas = data;
-                perguntaAtual = 0;
-                pontos = 0;
-                document.getElementById('inicio').style.display = 'none';
-                document.getElementById('quiz').style.display = 'block';
-                document.getElementById('resultado').style.display = 'none';
-                mostrarPergunta();
-            });
-        }
-
-        function mostrarPergunta() {
-            const pergunta = perguntas[perguntaAtual];
-            document.getElementById('pergunta').textContent = pergunta.texto;
-            
-            // Atualizar o badge de dificuldade
-            const badgeEl = document.getElementById('dificuldade-badge');
-            const dificuldadeClasses = {
-                'facil': 'bg-success',
-                'medio': 'bg-warning',
-                'dificil': 'bg-danger'
-            };
-            badgeEl.className = `badge ${dificuldadeClasses[pergunta.dificuldade] || 'bg-secondary'}`;
-            badgeEl.textContent = pergunta.dificuldade.charAt(0).toUpperCase() + pergunta.dificuldade.slice(1);
-            
-            const alternativasDiv = document.getElementById('alternativas');
-            alternativasDiv.innerHTML = '';
-            
-            // Criar uma cópia das alternativas e embaralhar
-            let alternativasEmbaralhadas = [...pergunta.alternativas];
-            shuffleArray(alternativasEmbaralhadas);
-            
-            alternativasEmbaralhadas.forEach(alternativa => {
-                const button = document.createElement('button');
-                button.className = 'btn btn-outline-primary';
-                button.textContent = alternativa;
-                button.onclick = () => selecionarResposta(alternativa);
-                alternativasDiv.appendChild(button);
-            });
-
-            document.getElementById('proxima').style.display = 'none';
-            document.getElementById('finalizar').style.display = 'none';
-        }
-
-        function selecionarResposta(resposta) {
-            const buttons = document.getElementById('alternativas').getElementsByTagName('button');
-            for (let button of buttons) {
-                button.disabled = true;
-                if (button.textContent === resposta) {
-                    if (resposta === perguntas[perguntaAtual].resposta_correta) {
-                        button.className = 'btn btn-success';
-                        pontos++;
-                    } else {
-                        button.className = 'btn btn-danger';
-                    }
-                }
-            }
-
-            if (perguntaAtual < perguntas.length - 1) {
-                document.getElementById('proxima').style.display = 'block';
-            } else {
-                document.getElementById('finalizar').style.display = 'block';
-            }
-        }
-
-        function proximaPergunta() {
-            perguntaAtual++;
-            mostrarPergunta();
-        }
-
-        function finalizarQuiz() {
-            document.getElementById('quiz').style.display = 'none';
-            document.getElementById('resultado').style.display = 'block';
-            document.getElementById('pontuacao-final').textContent = 
-                `Você acertou ${pontos} de ${perguntas.length} perguntas!`;
-        }
-
-        function voltarInicio() {
-            document.getElementById('inicio').style.display = 'block';
-            document.getElementById('resultado').style.display = 'none';
         }
     </script>
 </body>
